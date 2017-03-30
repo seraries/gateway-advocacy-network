@@ -104,4 +104,33 @@ app.controller('resourceCtrl', ['$scope', '$window', '$http', function($scope, $
 		}
 	}
 
+	$scope.findResource = function() {
+		if($scope.isValidLogin) {
+			$http.post("../php/findResource.php", $scope.editResInfo.name).then(function(response) {
+				// only getting back one matching bill, hence [0]. Set form details to match database 
+				$scope.editResInfo = response.data[0]; 
+			});
+		}
+	}
+
+	$scope.editResource = function() {
+		if($scope.isValidLogin) {
+						if($scope.selection.length > 0){
+				$scope.editResInfo.otherIssues = $scope.selection.join(", ");
+		}
+			//it must be empty--no checkboxes selected--so set a default of an empty string to pass db table
+		else {
+				$scope.editResInfo.otherIssues = "";
+		}
+		$http.post("../php/editResource.php", $scope.editResInfo).then(function(response) {
+				// get array of announcements again (newly updated)
+				$scope.resources = response.data;
+				// reset form when done
+				$scope.editResInfo = {};
+				$scope.editForm.$setUntouched();
+				$scope.issue = {}; // this doesn't seem to work to clear checkboxes
+			});	
+		}
+	}
+
 }]);

@@ -14,6 +14,14 @@
     <!--bootswatch flatly-->
 	<link rel="stylesheet" href="../css/bootstrap.min.css">
 	<link rel="stylesheet" href="../css/ganStyles.css">
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-93525777-1', 'auto');
+    ga('send', 'pageview');
+  </script>
   </head>
 
 	<body ng-app="resourceApp" ng-cloak ng-controller="resourceCtrl">
@@ -67,54 +75,104 @@
     </section>
 
     <section class="container" ng-show="isValidLogin">
-  <button class="btn btn-default btn-space btn-md" id="addBtn" data-toggle="modal" data-target="#addModal">Add Resource</button>
+      <button class="btn btn-default btn-space btn-md" id="addBtn" data-toggle="modal" data-target="#addModal">Add Resource</button>
+      <button class="btn btn-default btn-space btn-md" id="editBtn" data-toggle="modal" data-target="#editModal">Edit Resource</button>
 
-  <!-- Modal -->
-  <div class="modal fade" id="addModal" role="dialog">
-    <div class="modal-dialog">
+    <!-- Add Modal -->
+      <div class="modal fade" id="addModal" role="dialog">
+        <div class="modal-dialog">
+        
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header modal-pad">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h3>Add Resource</h3>
+              <span><em>All Fields Required</em></span>
+            </div>
+            <div class="modal-body modal-pad">
+              <form role="form" name="addForm" novalidate>
+                <div class="form-group">
+                  <label for="name">Name of Resource: </label>
+                  <input type="text" class="form-control" id="name" ng-model="addResInfo.name" placeholder="e.g., Planned Parenthood" required>
+                </div>
+                <div class="form-group">
+                  <label for="link">Link to this resource: </label>
+                  <input type="text" class="form-control" id="link" ng-model="addResInfo.link" placeholder="Copy paste link to their website or fb page" required>
+                </div>
+                <div class="form-group">
+                  <label for="about">About this resource: </label>
+                  <input type="text" class="form-control" id="about" ng-model="addResInfo.about" placeholder="Summarize what they do; e.g. mission statement" required>
+                </div>
+                <div class="form-group">
+    				    	<label for="main">Select Main Issue this resource is concerned with: </label>
+    				    	<select name="main" ng-model="addResInfo.mainIssue" required>
+    				    		<option value="">Required: Select One</option>
+    				    		<option ng-repeat="type in resTypes" value="{{type.name}}">{{type.name}}</option>
+    				    	</select>
+    				    </div>
+                <label>Select Other Issues (up to 5, please) this resource is concerned with: </label>
+                <label class="checkbox-inline" ng-repeat="issue in resTypes">
+    				      <input type="checkbox" name="selectedIssues[]" ng-model="issue.selected" value="{{issue.name}}">{{issue.name}}
+    				    </label>
+
+              </form>
+            </div>
+            <div class="modal-footer">
+            <button class="btn btn-success btn-block" ng-disabled="addForm.$invalid" ng-click="addResource()">Add Resource</button>
+            </div>
+          </div>
+          
+        </div>
+      </div>     	
+    </section>
     
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header modal-pad">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h3>Add Resource</h3>
-          <span><em>All Fields Required</em></span>
-        </div>
-        <div class="modal-body modal-pad">
-          <form role="form" name="addForm" novalidate>
-            <div class="form-group">
-              <label for="name">Name of Resource: </label>
-              <input type="text" class="form-control" id="name" ng-model="addResInfo.name" placeholder="e.g., Planned Parenthood" required>
+    <section>
+ <!-- Edit Modal -->
+      <div class="modal fade" id="editModal" role="dialog">
+        <div class="modal-dialog">
+        
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header modal-pad">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h3>Edit a Resource</h3>
+              <span><em>All Fields Required</em></span>
             </div>
-            <div class="form-group">
-              <label for="link">Link to this resource: </label>
-              <input type="text" class="form-control" id="link" ng-model="addResInfo.link" placeholder="Copy paste link to their website or fb page" required>
-            </div>
-            <div class="form-group">
-              <label for="about">About this resource: </label>
-              <input type="text" class="form-control" id="about" ng-model="addResInfo.about" placeholder="Summarize what they do; e.g. mission statement" required>
-            </div>
-            <div class="form-group">
-				    	<label for="main">Select Main Issue this resource is concerned with: </label>
-				    	<select name="main" ng-model="addResInfo.mainIssue" required>
-				    		<option value="">Required: Select One</option>
-				    		<option ng-repeat="type in resTypes" value="{{type.name}}">{{type.name}}</option>
-				    	</select>
-				    </div>
-            <label>Select Other Issues (up to 5, please) this resource is concerned with: </label>
-            <label class="checkbox-inline" ng-repeat="issue in resTypes">
-				      <input type="checkbox" name="selectedIssues[]" ng-model="issue.selected" value="{{issue.name}}">{{issue.name}}
-				    </label>
+            <div class="modal-body modal-pad">
+              <form role="form" name="editForm" novalidate>
+                <div class="form-group">
+                  <label for="editName">Name of Resource: </label>
+                  <input type="text" class="form-control" id="editName" ng-model="editResInfo.name" placeholder="enter name EXACTLY as it appears on webpage" ng-blur="findResource()" required>
+                </div>
+                <div class="form-group">
+                  <label for="editLink">Link to this resource: </label>
+                  <input type="text" class="form-control" id="editLink" ng-model="editResInfo.link" placeholder="Copy paste link to their website or fb page" required>
+                </div>
+                <div class="form-group">
+                  <label for="editAbout">About this resource: </label>
+                  <input type="text" class="form-control" id="editAbout" ng-model="editResInfo.about" placeholder="Summarize what they do; e.g. mission statement" required>
+                </div>
+                <div class="form-group">
+                  <label for="editMain">Select Main Issue this resource is concerned with: </label>
+                  <select name="editMain" id="editMain" ng-model="editResInfo.mainIssue" required>
+                    <option value="">Required: Select One</option>
+                    <option ng-repeat="type in resTypes" value="{{type.name}}">{{type.name}}</option>
+                  </select> <!--using string instead of object in this select with ngRepeat-->
+                </div>
+                <label>Select Other Issues (up to 5, please) this resource is concerned with: </label>
+                <label class="checkbox-inline" ng-repeat="issue in resTypes">
+                  <input type="checkbox" name="selectedIssues[]" ng-model="issue.selected" value="{{issue.name}}">{{issue.name}}
+                </label>
 
-          </form>
+              </form>
+            </div>
+            <div class="modal-footer">
+            <button class="btn btn-success btn-block" ng-disabled="editForm.$invalid" ng-click="editResource()">Edit Resource</button>
+            </div>
+          </div>
+          
         </div>
-        <div class="modal-footer">
-        <button class="btn btn-success btn-block" ng-disabled="addForm.$invalid" ng-click="addResource()">Add Resource</button>
-        </div>
-      </div>
-      
-    </div>
-  </div>     	
+      </div>            
     </section>
 
     <!--buttons for each issue/type of resource and toggles show/hide for issue/type sections below-->

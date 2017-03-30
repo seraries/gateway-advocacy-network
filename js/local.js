@@ -93,5 +93,47 @@ app.controller('localCtrl', ['$scope', '$window', '$http', function($scope, $win
 	    });
 		}
 	}
+
+	$scope.findGroup = function() {
+		if($scope.isValidLogin) {
+			$http.post("../php/findGroup.php", $scope.editGroupInfo.name).then(function(response) {
+				// only getting back one matching bill, hence [0]. Set form details to match database 
+				$scope.editGroupInfo = response.data[0]; 
+			});
+			/* CAN'T GET THIS TO WORK TO CHECK CHECKBOXES ON EDIT FORM BASED ON RESPONSE DATA
+			if($scope.editGroupInfo.issues === ""){
+				// do nothing, it's empty so I don't need to mark checkboxes for it
+			}
+			else {
+				var issueArray = $scope.editGroupInfo.issues.split(",");
+				for (issue in issueArray) {
+					var index = $scope.resTypes.indexOf(issue); // returns -1 if string not in array
+					if (index > -1) {
+						$scope.resTypes[index].selected = true; // set checkbox on edit form to match info in DB
+					}
+				}
+			} */
+		}
+	}
+
+	$scope.editGroup = function() {
+		if($scope.isValidLogin) {
+						if($scope.selection.length > 0){
+				$scope.editGroupInfo.issues = $scope.selection.join(", ");
+		}
+			//it must be empty--no checkboxes selected--so set a default of an empty string to pass db table
+		else {
+				$scope.editGroupInfo.issues = "";
+		}
+		$http.post("../php/editGroup.php", $scope.editGroupInfo).then(function(response) {
+				// get array of announcements again (newly updated)
+				$scope.groups = response.data;
+				// reset form when done
+				$scope.editGroupInfo = {};
+				$scope.editForm.$setUntouched();
+				$scope.issue = {};
+			});	
+		}
+	}
 	
 }]);
