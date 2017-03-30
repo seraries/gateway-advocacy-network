@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Local Groups</title>
+    <meta charset="utf-8">
+    <!--make it responsive on mobile devices-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- import jQuery -->
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+      <!--import AngularJS-->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular.min.js"></script>
+    <script src="../js/local.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <!--bootswatch flatly-->
+		<link rel="stylesheet" href="../css/bootstrap.min.css">
+		<link rel="stylesheet" href="../css/ganStyles.css">
+  </head>
+
+	<body ng-app="localApp" ng-cloak ng-controller="localCtrl">
+		<nav class="navbar navbar-inverse">
+		  <div class="container-fluid">
+		    <div class="navbar-header">
+		      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
+		        <span class="sr-only">Toggle navigation</span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		      </button>
+		      <span class="navbar-brand">G.A.N.</span>
+		    </div>
+
+		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+		      <ul class="nav navbar-nav">
+		        <li><a href="http://gan.richardsonprogramming.com">Home</a></li>
+		        <li><a href="events.html">Events</a></li>
+		        <li class="active"><a href="#">Local Groups <span class="sr-only">(current)</span></a></li>
+		        <li><a href="resources.html">Resources</a></li>
+		        <li><a href="contact.html">Contact Reps</a></li>
+		        <li><a href="http://gan.boards.net/" target="_blank" rel="noopener">Forum</a></li>
+		      </ul>
+		    </div>
+		  </div>
+		</nav>
+		<header>
+			<h1 class="text-center">Local Groups</h1>
+		</header>
+
+		<p>Leaders Login <span ng-click="hideLogin = false"><u>here</u></span></p>
+    <section ng-hide="hideLogin">
+      <form class="panel panel-default" name="loginForm" novalidate>
+        <header class="panel-heading">
+          <h3>Leader Login: <button ng-click="hideLogin = true" class="btn-md pull-right">&times;</button></h3>
+        </header>
+        <div class="panel-body">
+          <div class="form-group">
+          <label for="user">Username: </label>
+          <input type="text" class="form-control" name="username" ng-model="loginInfo.username" required>
+          </div>
+          <div class="form-group">
+          <label for="password">Password: </label>
+          <input type="password" class="form-control" name="password" ng-model="loginInfo.password" required>
+          </div>
+          <button class="btn btn-default" ng-disabled="loginForm.$invalid" ng-click="loginSubmit()">Login</button>
+          <span class="error" ng-show="showFailedLogin">Incorrect Username or Password</span>
+        </div>
+      </form>
+    </section>
+
+        <section class="container" ng-show="isValidLogin">
+  <button class="btn btn-default btn-space btn-md" id="addBtn" data-toggle="modal" data-target="#addModal">Add Local Group</button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="addModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header modal-pad">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h3>Add a Local Group</h3>
+          <span><em>All Fields Required</em></span>
+        </div>
+        <div class="modal-body modal-pad">
+          <form role="form" name="addForm" novalidate>
+            <div class="form-group">
+              <label for="name">Name of Group: </label>
+              <input type="text" class="form-control" id="name" ng-model="addGroupInfo.name" placeholder="e.g., Clayton Huddle" required>
+            </div>
+            <div class="form-group">
+              <label for="link">Link to this group: </label>
+              <input type="text" class="form-control" id="link" ng-model="addGroupInfo.link" placeholder="Copy paste link to their website or fb page" required>
+            </div>
+            <div class="form-group">
+              <label for="about">About this group: </label>
+              <input type="text" class="form-control" id="about" ng-model="addGroupInfo.about" placeholder="Summarize what they do; e.g. mission statement" required>
+            </div>
+            <div class="form-group">
+				    	<label for="contact">Contact Person for this group: </label>
+				    	<input type="text" class="form-control" id="contact" ng-model="addGroupInfo.contact" placeholder="e.g., Tom Thompson" required>
+				    </div>
+				    <div class="form-group">
+				    	<label for="contactEmail">Contact Email for contact person: </label>
+				    	<input type="email" class="form-control" id="contactEmail" ng-model="addGroupInfo.contactEmail" placeholder="tomRocks@gmail.com" required>
+				    </div>
+				    <div class="form-group">
+				    	<label for="zip">Zip Code group meets in (or if no meetings, building location): </label>
+				    	<input type="text" class="form-control" id="zip" ng-model="addGroupInfo.zip" placeholder="63105" required>
+				    </div>
+            <label>Select Issues (up to 6, please) this group is concerned with: </label>
+            <label class="checkbox-inline" ng-repeat="issue in resTypes">
+				      <input type="checkbox" name="selectedIssues[]" ng-model="issue.selected" value="{{issue.name}}">{{issue.name}}
+				    </label>
+
+          </form>
+        </div>
+        <div class="modal-footer">
+        <button class="btn btn-success btn-block" ng-disabled="addForm.$invalid" ng-click="addGroup()">Add Group</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>     	
+    </section>
+
+    <div class="panel panel-default">
+    	<div class="panel-heading">
+	    	<label for="zipSearch">Show Groups in Zip Code: </label>
+	    	<input type="text" name="zipSearch" id="zipSearch" ng-model="zipSearch">
+	    	<button class="btn btn-md btn-primary" ng-disabled="!zipSearch" ng-click="searchZip()">Search</button>
+    	</div>
+	    <section class="panel-body">
+	    	<div ng-repeat="group in zipGroups | orderBy: 'name'">
+	    		<header><h2><a ng-href="{{group.link}}">{{group.name}}</a></h2></header>
+	  			<p><span class="info">About</span>: {{group.about}}</p>
+	  			<p><span class="info">Focus</span>: {{group.issues}}</p>
+	  			<p><span class="info">Contact</span>: {{group.contact}}</p>
+	  			<p><span class="info">Email</span>: <a ng-href="mailto:{{group.contactEmail}}">{{ group.contactEmail }}</a></p>
+	  			<p><span class="info">Meets in Zip</span>: {{group.zip}}</p>
+	    	</div>
+	    </section>
+    </div>
+
+    <section>
+    	<div ng-repeat="each in groups | orderBy: 'name'">
+    		<header><h2><a ng-href="{{each.link}}">{{each.name}}</a></h2></header>
+  			<p><span class="info">About</span>: {{each.about}}</p>
+  			<p><span class="info">Focus</span>: {{each.issues}}</p>
+  			<p><span class="info">Contact</span>: {{each.contact}}</p>
+  			<p><span class="info">Email</span>: <a ng-href="mailto:{{each.contactEmail}}">{{ each.contactEmail }}</a></p>
+  			<p><span class="info">Meets in Zip</span>: {{each.zip}}</p>
+    	</div> 	
+    </section>
+
+
+	</body>
+</html>
