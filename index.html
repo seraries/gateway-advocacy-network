@@ -3,6 +3,7 @@
   <head>
     <title>Welcome to the Gateway Advocacy Network</title>
     <meta charset="utf-8">
+    <meta name="description" content="An activist resource for St. Louis and Missouri area activists.">
     <!--make it responsive on mobile devices-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- import jQuery -->
@@ -10,61 +11,90 @@
       <!--import AngularJS <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular.min.js"></script> -->
     <script src="js/bootstrap.min.js"></script>
     <!--bootswatch flatly-->
-		<link rel="stylesheet" href="css/bootstrap.min.css">
-		<link rel="stylesheet" href="css/ganStyles.css">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/ganStyles.css">
+	<script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-93525777-1', 'auto');
+      ga('send', 'pageview');
+    </script>
   </head>
 
 	<body> <!--ng-app="homeApp" ng-cloak ng-controller="homeCtrl" if I use angular on this page-->
-		<nav class="navbar navbar-inverse">
-		  <div class="container-fluid">
-		    <div class="navbar-header">
-		      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
-		        <span class="sr-only">Toggle navigation</span>
-		        <span class="icon-bar"></span>
-		        <span class="icon-bar"></span>
-		        <span class="icon-bar"></span>
-		      </button>
-		      <span class="navbar-brand">G.A.N.</span>
-		    </div>
+		<div id="wrapper">
+			<nav class="navbar navbar-inverse">
+			  <div class="container-fluid">
+			    <div class="navbar-header">
+			      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
+			        <span class="sr-only">Toggle navigation</span>
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			      </button>
+			      <span class="navbar-brand">Gateway Advocacy Network</span>
+			    </div>
 
-		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
-		      <ul class="nav navbar-nav">
-		        <li class="active"><a href="#">Home <span class="sr-only">(current)</span></a></li>
-		        <li><a href="html/events.html">Events</a></li>
-		        <li><a href="html/local.html">Local Groups</a></li>
-		        <li><a href="html/resources.html">Resources</a></li>
-		        <li><a href="html/contact.html">Contact Reps</a></li>
-		        <li><a href="#" target="_blank" rel="noopener">Forum</a></li>
-		      </ul>
-		    </div>
-		  </div>
-		</nav>
+			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+			      <ul class="nav navbar-nav">
+			        <li class="active"><a href="#">Home <span class="sr-only">(current)</span></a></li>
+			        <li><a href="html/events.html">Events</a></li>
+			        <li><a href="html/local.html">Local Groups</a></li>
+			        <li><a href="html/resources.html">Resources</a></li>
+			        <li><a href="html/contact.html">Contact Reps</a></li>
+			        <li><a href="#" target="_blank" rel="noopener">Forum</a></li>
+			      </ul>
+			    </div>
+			  </div>
+			</nav>
 
-		<header>
-			<h1 class="text-center">Welcome to the Gateway Advocacy Network!</h1>
-		</header>
-
-		<section>
-			<header>
-				<h2><u>About Us</u></h2>
+			<header class="text-center">
+				<h1>Welcome to the Gateway Advocacy Network!</h1>
+				<h2><em>Get Connected. Be Effective. Stay Committed.</em></h2>
 			</header>
-			<p>
-				We are a network of organizations and local activist groups dedicated to...
-			</p>
-			<p>
-				The goal of this website is to be a one-stop shop for all of your civic education and participation needs. Use it to find a local group to join, stay abreast of local events, find an organization to donate to, learn about issues that concern you, and receive encouragement and instruction on how to connect with your elected representatives.
-			</p>
-		</section>
 
-		<section>
-			<header>
-				<h2><u>Network Members</u></h2>
-			</header>
-			<p>
-				Some members of our network include: DefendHERS, Liberal Women Unite, Indivisible STL, NCJW, ...
-			</p>
-		</section>
+			<section>
+				<header>
+					<h3><u>About Us</u></h3>
+				</header>
+				<p>
+					We are a network of grassroots groups and advocacy organizations located in Missouri, primarily in the Eastern region and Greater St. Louis area. We are dedicated to defending those who are most vulnerable, fighting threats to democracy and abuses of power, and promoting social and political change that will benefit all Americans. 
+				</p>
+				<p>
+					The goal of this website is to be a one-stop shop for all of your civic education and participation needs. We are pooling our knowledge of resources and events so that we can provide a centralized information hub for activists and coordinate powerful civic actions together.
+				</p>
+			</section>
+			<section>
+				<header>
+					<h3><u>About This Website</u></h3>
+				</header>
+				<div>
+					Use this website to: 
+					<ul>
+						<li>Find a local group to join at <a href="html/local.html">Local Groups</a></li> 
+						<li>Choose events to attend at <a href="html/events.html">Events</a></li> 
+						<li>Find organizations to support and resources to utilize at <a href="html/resources.html">Resources</a></li> 
+						<li>Connect with fellow activists at <a href="http://gan.boards.net/" target="_blank" rel="noopener">Forum</a></li> 
+						<li>Find tools and guidance on how to connect with your elected representatives at <a href="html/contact.html">Contact Reps</a></li>
+					</ul>
+				</div>
+			</section>
 
+			<section>
+				<header>
+					<h3><u>Network Members</u></h3>
+				</header>
+				<p>
+					ACLU People Project Group, Clayton Huddle, CountHer Movement, DefendHERS, Expose Thrive, Forward Together In Action, Gateway Democrats, Indivisible St. Louis City, Liberal Women Unite, Missouri For All, MO2-4Change, Mobilize Missouri, MOPAG, National Council of Jewish Women, National Women's Political Caucus of Metro St. Louis, #RESIST groups, Service Employees International Union, Take Action St. Charles, U City Huddle, West County Democrats, West County Huddle, Women's Voices Raised for Social Justice
+				</p>
+			</section>
+		</div>
+
+		<footer id="foot">
+			<p>Problems with the site? Contact webmaster: <a href="mailto:sarah@richardsonprogramming.com?Subject=About%20The%20GAN%20Website">Sarah Richardson</a></p>
+		</footer>
 
 	</body>
 </html>

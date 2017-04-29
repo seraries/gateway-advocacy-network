@@ -15,27 +15,24 @@ app.filter('resFilter', [ function() {
 app.controller('resourceCtrl', ['$scope', '$window', '$http', function($scope, $window, $http) {
 	$scope.campaign = false;
 	$scope.civic = false;
-	$scope.consumer = false;
 	$scope.criminal = false;
 	$scope.disability = false;
 	$scope.economic = false;
 	$scope.education = false;
 	$scope.environment = false;
+	$scope.gun = false;
 	$scope.health = false;
-	$scope.international = false;
 	$scope.immigration = false;
 	$scope.lgbtqia = false;
-	$scope.other = false;
 	$scope.racial = false;
 	$scope.voter = false;
 	$scope.women = false;
 	// also create buttons using this array and use it for checkboxes of issues
-	$scope.resTypes = [{name: "Campaign Finance Reform", show: "campaign"}, {name: "Civic Involvement", show: "civic"}, 
-	{name: "Consumer Rights", show: "consumer"}, {name: "Criminal Justice", show: "criminal"}, {name: "Disability", show: "disability"}, 
-	{name: "Economic Justice", show: "economic"}, {name: "Education", show: "education"}, {name: "Environment", show: "environment"}, 
-	{name: "Health Care", show: "health"}, {name: "International", show: "international"}, {name: "Immigration and Refugees", show: "immigration"}, 
-	{name: "LGBTQIA", show: "lgbtqia"}, {name: "Other", show: "other"}, {name: "Racial Justice", show: "racial"},
-	{name: "Voter Rights", show: "voter"}, {name: "Women's Rights", show: "women"}];
+	$scope.resTypes = [{name: "Campaigns and Elections", show: "campaign"}, {name: "Civic Involvement", show: "civic"}, 
+	{name: "Criminal Justice", show: "criminal"}, {name: "Disability", show: "disability"}, {name: "Economic Justice", show: "economic"}, 
+	{name: "Education", show: "education"}, {name: "Environment", show: "environment"}, {name: "Gun Control", show: "gun"}, 
+	{name: "Health Care", show: "health"}, {name: "Immigration and Refugees", show: "immigration"}, {name: "LGBTQIA", show: "lgbtqia"}, 
+	{name: "Racial Justice", show: "racial"}, {name: "Voter Rights", show: "voter"}, {name: "Women's Rights", show: "women"}];
 
 	$scope.resources = [];
 	$http.get("../php/getResources.php").then(function(response) {
@@ -43,7 +40,16 @@ app.controller('resourceCtrl', ['$scope', '$window', '$http', function($scope, $
   });
 
   $scope.toggleBtn = function(showString) {
-  	$scope[showString] = !$scope[showString];
+		// make the other buttons' resources disappear
+		// for each resource type, if its show value is not equal to showString, set the scope.showValue to false
+		angular.forEach($scope.resTypes, function(type){
+			// if it's a resource that doesn't match the showString, hide it
+			if (type.show != showString) {
+				$scope[type.show] = false;
+			}
+		});
+		// make this resource type's resources either appear or disappear	
+		$scope[showString] = !$scope[showString]; 
   }
 
 	$scope.hideLogin = true;

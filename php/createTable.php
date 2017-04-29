@@ -111,6 +111,14 @@ if ($conn->query($insertSql) === TRUE) {
 } else {
     // echo "Error: " . $sql . "<br>" . $conn->error;
 }
+// increased maxlength for zip so that people can enter multiple comma-separated zips.
+$alterSql = "ALTER TABLE groups MODIFY COLUMN zip VARCHAR(30)";
+if ($conn->query($alterSql) === TRUE) {
+    // echo "Table MyGuests created successfully";
+    file_put_contents("alterTest.txt", "groups table altered");
+} else {
+    echo "Error altering table: " . $conn->error;
+}
 
 $createSql3 = "CREATE TABLE if NOT EXISTS resources (id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, name VARCHAR(110) UNIQUE NOT NULL, about VARCHAR(500) NOT NULL, mainIssue VARCHAR(50) NOT NULL, otherIssues VARCHAR(200), link VARCHAR(110) DEFAULT '')";
 

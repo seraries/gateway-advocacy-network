@@ -18,7 +18,7 @@ $insertSql = $conn->prepare("INSERT INTO groups (name, about, zip, issues, conta
 $insertSql->bind_param("sssssss", $name, $about, $zip, $issues, $contact, $contactEmail, $link);
 
 if ($insertSql->execute() === TRUE) {
-    file_put_contents("addTest.txt", " new record created!! ", FILE_APPEND);
+    // file_put_contents("addTest.txt", " new record created!! ", FILE_APPEND);
 } else {
     // echo "Error: " . $sql . "<br>" . $conn->error;
     // TO-DO: The line above created a ng-repeat dupes error, instead I want to 
@@ -48,6 +48,6 @@ echo $array;
 
 $conn->close();
 
-file_put_contents("addTest.txt", "at end of file", FILE_APPEND);
+// file_put_contents("addTest.txt", "at end of file", FILE_APPEND);
 
 ?>

@@ -4,7 +4,8 @@ $loginInfo = file_get_contents("php://input");
 $loginInfo = json_decode($loginInfo);
 $username = $loginInfo->username;
 $password = $loginInfo->password;
-file_put_contents("testData.txt", "start of file");
+// file_put_contents("testData.txt", "start of file");
+
 // this gets $conn from db using config info
 require_once('dbconnect.php');
 
@@ -38,7 +39,7 @@ $resp->message = "no"; // default value, if it wasn't successful
 while ($user = $result->fetch_object()) {
 	// Hashing the password with its hash as the salt returns the same hash
 	if (hash_equals($user->hash, crypt($password, $user->hash)) ) {
-		file_put_contents("testData.txt", "success! ", FILE_APPEND);
+		// file_put_contents("testData.txt", "success! ", FILE_APPEND);
 		$resp->message = "ok"; // value since it was successful
 		$resp = json_encode($resp);
 		echo $resp;
@@ -48,5 +49,5 @@ while ($user = $result->fetch_object()) {
 $stmt->close();
 
 $conn->close();
-file_put_contents("testData.txt", "at end of file ", FILE_APPEND);
+// file_put_contents("testData.txt", "at end of file ", FILE_APPEND);
 ?>

@@ -9,6 +9,7 @@ app.controller('localCtrl', ['$scope', '$window', '$http', function($scope, $win
 	$scope.economic = false;
 	$scope.education = false;
 	$scope.environment = false;
+	$scope.gun = false;
 	$scope.health = false;
 	$scope.international = false;
 	$scope.immigration = false;
@@ -21,7 +22,7 @@ app.controller('localCtrl', ['$scope', '$window', '$http', function($scope, $win
 	$scope.resTypes = [{name: "Campaign Finance Reform", show: "campaign"}, {name: "Civic Involvement", show: "civic"}, 
 	{name: "Consumer Rights", show: "consumer"}, {name: "Criminal Justice", show: "criminal"}, {name: "Disability", show: "disability"}, 
 	{name: "Economic Justice", show: "economic"}, {name: "Education", show: "education"}, {name: "Environment", show: "environment"}, 
-	{name: "Health Care", show: "health"}, {name: "International", show: "international"}, {name: "Immigration and Refugees", show: "immigration"}, 
+	{name: "Gun Control", show: "gun"}, {name: "Health Care", show: "health"}, {name: "International", show: "international"}, {name: "Immigration and Refugees", show: "immigration"}, 
 	{name: "LGBTQIA", show: "lgbtqia"}, {name: "Other", show: "other"}, {name: "Racial Justice", show: "racial"},
 	{name: "Voter Rights", show: "voter"}, {name: "Women's Rights", show: "women"}];
 
@@ -29,6 +30,11 @@ app.controller('localCtrl', ['$scope', '$window', '$http', function($scope, $win
 	$http.get("../php/getGroups.php").then(function(response) {
   	$scope.groups = response.data; // when I have more than 1 group in db, remove the [0]
   });
+  /*
+  $http.post("../php/deleteGroup.php", "Example Group").then(function(response) {
+	// delete hard-coded group and get new array of resources
+		$scope.groups = response.data;
+	});*/
 
 	$scope.hideLogin = true;
 	$scope.showFailedLogin = false;
@@ -54,6 +60,9 @@ app.controller('localCtrl', ['$scope', '$window', '$http', function($scope, $win
 	$scope.searchZip = function(){
 		$scope.zipGroups = $.grep($scope.groups, function(obj){
 			return obj.zip === $scope.zipSearch;
+			// change this to break obj.zip into array (from comma separated string from db)
+			// then search and return true if this array includes the zipSearch
+			// this accomodates places that have meetings in multiple locations
 		});
 	}
 

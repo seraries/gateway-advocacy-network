@@ -1,6 +1,19 @@
 body {
 	margin: 20px;
 }
+/*sticky footer code (given 16px top and 16px bottom margin with footer height */
+#wrapper {
+    min-height: calc(100vh - 80px);
+} 
+footer {
+    height: 20px;   
+} 
+#foot {
+    padding: 10px;
+    padding-top: 15px;
+    font-size: 14px;
+    text-align: center;
+}
 /* stop navbar G.A.N. from changing colors and looking like a link */
 .navbar-inverse .navbar-brand:hover, 
 .navbar-inverse .navbar-brand:focus {
@@ -28,6 +41,22 @@ body {
 .btn-space {
 	margin: 10px;
 }
+.btn-lead {
+    background-color: #7581E8;
+    color: #FFFFFF;
+}
+.btn-lead:hover {
+    background-color: #8EB7FF;
+}
 .modal-pad{
 	padding: 20px 20px;
+}
+.login {
+    background-color: #7581E8;
+    font-style: italic;
+    font-size: 18px; 
+    cursor: pointer;
+}
+.login:hover {
+    color: #FFFFFF;
 }
