@@ -41,7 +41,7 @@
 
 			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
 			      <ul class="nav navbar-nav">
-			        <li><a href="http://gan.richardsonprogramming.com">Home</a></li>
+			        <li><a href="http://gatewayadvocacynetwork.com">Home</a></li>
 			        <li><a href="events.html">Events</a></li>
 			        <li class="active"><a href="#">Local Groups <span class="sr-only">(current)</span></a></li>
 			        <li><a href="resources.html">Resources</a></li>
@@ -99,11 +99,12 @@
 			            </div>
 			            <div class="form-group">
 			              <label for="link">Link to this group: </label>
-			              <input type="text" class="form-control" id="link" ng-model="addGroupInfo.link" placeholder="Copy paste link to their website or fb page" required>
+			              <input type="text" class="form-control" id="link" name="link" ng-model="addGroupInfo.link" placeholder="Copy and paste link to your website or FB page" required>
+			              <span class="error" ng-show="addForm.link.$touched && !isValidLink(addGroupInfo.link)">Links must begin with http:&#x2F;&#x2F; or https:&#x2F;&#x2F;</span>
 			            </div>
 			            <div class="form-group">
 			              <label for="about">About this group: </label>
-			              <input type="text" class="form-control" id="about" ng-model="addGroupInfo.about" placeholder="Summarize what they do; e.g. mission statement" required>
+			              <input type="text" class="form-control" id="about" ng-model="addGroupInfo.about" placeholder="Summarize what you do; e.g. mission statement" required>
 			            </div>
 			            <div class="form-group">
 							    	<label for="contact">Contact Person for this group: </label>
@@ -115,7 +116,8 @@
 							    </div>
 							    <div class="form-group">
 							    	<label for="zip">Zip Code group meets in (or if no meetings, building location): </label>
-							    	<input type="text" class="form-control" id="zip" ng-model="addGroupInfo.zip" placeholder="63105" required>
+							    	<input type="text" class="form-control" id="zip" name="zip" ng-model="addGroupInfo.zip" placeholder="63105" required>
+							    	<span class="error" ng-show="addForm.zip.$touched && !isValidZip(addGroupInfo.zip)">Only enter one 5 digit zip. If you meet in multiple zips, enter the most central zip.</span>
 							    </div>
 			            <label>Select Issues (up to 6, please) this group is concerned with: </label>
 			            <label class="checkbox-inline" ng-repeat="issue in resTypes">
@@ -125,7 +127,7 @@
 			          </form>
 			        </div>
 			        <div class="modal-footer">
-			        <button class="btn btn-success btn-block" ng-disabled="addForm.$invalid" ng-click="addGroup()">Add Group</button>
+			        <button class="btn btn-success btn-block" ng-disabled="addForm.$invalid || !isValidLink(addGroupInfo.link) || !isValidZip(addGroupInfo.zip)" ng-click="addGroup()">Add Group</button>
 			        </div>
 			      </div>
 			      
@@ -149,15 +151,16 @@
 			          <form role="form" name="editForm" novalidate>
 			            <div class="form-group">
 			              <label for="editName">Name of Group: </label>
-			              <input type="text" class="form-control" id="editName" ng-model="editGroupInfo.name" placeholder="enter name EXACTLY as it appears on webpage" ng-blur="findGroup()" required>
+			              <input type="text" class="form-control" id="editName" ng-model="editGroupInfo.name" placeholder="enter name EXACTLY as it appears on this webpage" ng-blur="findGroup()" required>
 			            </div>
 			            <div class="form-group">
 			              <label for="editLink">Link to this group: </label>
-			              <input type="text" class="form-control" id="editLink" ng-model="editGroupInfo.link" placeholder="Copy paste link to their website or fb page" required>
+			              <input type="text" class="form-control" id="editLink" name="editLink" ng-model="editGroupInfo.link" placeholder="Copy paste link to your website or FB page" required>
+			              <span class="error" ng-show="editForm.editLink.$touched && !isValidLink(editGroupInfo.link)">Links must begin with http:&#x2F;&#x2F; or https:&#x2F;&#x2F;</span>
 			            </div>
 			            <div class="form-group">
 			              <label for="editAbout">About this group: </label>
-			              <input type="text" class="form-control" id="editAbout" ng-model="editGroupInfo.about" placeholder="Summarize what they do; e.g. mission statement" required>
+			              <input type="text" class="form-control" id="editAbout" ng-model="editGroupInfo.about" placeholder="Summarize what you do; e.g. mission statement" required>
 			            </div>
 			            <div class="form-group">
 							    	<label for="editContact">Contact Person for this group: </label>
@@ -169,40 +172,56 @@
 							    </div>
 							    <div class="form-group">
 							    	<label for="editzip">Zip Code group meets in (or if no meetings, building location): </label>
-							    	<input type="text" class="form-control" id="editZip" ng-model="editGroupInfo.zip" placeholder="63105" required>
+							    	<input type="text" class="form-control" id="editZip" name="editZip" ng-model="editGroupInfo.zip" placeholder="63105" required>
+							    	<span class="error" ng-show="editForm.editZip.$touched && !isValidZip(editGroupInfo.zip)">Only enter one 5 digit zip. If you meet in multiple zips, enter the most central zip.</span>
 							    </div>
 			            <label>Select Issues (up to 6, please) this group is concerned with: </label>
 			            <label class="checkbox-inline" ng-repeat="issue in resTypes">
 							      <input type="checkbox" name="selectedIssues[]" ng-model="issue.selected" value="{{issue.name}}">{{issue.name}}
 							    </label>
-
 			          </form>
 			        </div>
 			        <div class="modal-footer">
-			        <button class="btn btn-success btn-block" ng-disabled="editForm.$invalid" ng-click="editGroup()">Edit Group</button>
+			        <button class="btn btn-success btn-block" ng-disabled="editForm.$invalid || !isValidLink(editGroupInfo.link) || !isValidZip(editGroupInfo.zip)" ng-click="editGroup()">Edit Group</button>
 			        </div>
 			      </div>
 			      
 			    </div>
 			  </div>     	
 	    </section>
-
-
-	    <div class="panel panel-default">
-	    	<div class="panel-heading">
-		    	<label for="zipSearch">Show Groups in Zip Code: </label>
-		    	<input type="text" name="zipSearch" id="zipSearch" ng-model="zipSearch">
-		    	<button class="btn btn-md btn-primary" ng-disabled="!zipSearch" ng-click="searchZip()">Search</button>
-	    	</div>
+ 				<div class="panel panel-default">
+		    	<div class="panel-heading">
+			    	<label for="zipSearch">Show Groups in Zip Code: </label>
+			    	<input type="text" name="zipSearch" id="zipSearch" ng-model="zipSearch">
+			    	<label for="zipDistance">within how many miles: </label>
+			    	<select name="zipDistance" id="zipDistance" ng-model="zipDistance">
+			    		<option value="5">5</option>
+			    		<option value="15">15</option>
+			    		<option value="25">25</option>
+			    		<option value="50">50</option>
+			    		<option value="100">100</option>
+			    		<option value="200">200</option>
+			    	</select>
+			    	<button class="btn btn-md btn-primary" ng-disabled="!zipSearch" ng-click="searchZip()">Search</button>
+		    	</div>
 		    <section class="panel-body">
-		    	<div ng-repeat="group in zipGroups | orderBy: 'name'">
+		    	<div ng-show="zipGroups.length > 0">
+		    		<label for="zipFocus">Filter by Focus: </label>
+		    		<select name="zipFocus" id="zipFocus" ng-model="zipFocus" >
+		    			<option value="All">All Issues</option>
+		    			<option ng-repeat="x in resTypes">{{x.name}}</option>
+		    			<option value="15">15</option>
+			    	</select>
+		    	</div>
+		    	<div ng-repeat="group in zipGroups | filter: focusFilter | orderBy: 'name'">
 		    		<header><h2><a ng-href="{{group.link}}" target="_blank" rel="noopener">{{group.name}}</a></h2></header>
 		  			<p><span class="info">About</span>: {{group.about}}</p>
 		  			<p><span class="info">Focus</span>: {{group.issues}}</p>
 		  			<p><span class="info">Contact</span>: {{group.contact}}</p>
 		  			<p><span class="info">Email</span>: <a ng-href="mailto:{{group.contactEmail}}">{{ group.contactEmail }}</a></p>
 		  			<p><span class="info">Meets in Zip</span>: {{group.zip}}</p>
-		    	</div>
+		    	</div>		
+		    	<div ng-show="(zipGroups | filter: focusFilter).length < 1">No groups matching that criteria.</div> 	
 		    </section>
 	    </div>
 

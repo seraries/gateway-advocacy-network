@@ -38,6 +38,10 @@ footer {
 	text-decoration: underline;
 	font-style: italic;
 }
+.error {
+    color: red;
+    font-style: italic;
+}
 .btn-space {
 	margin: 10px;
 }
