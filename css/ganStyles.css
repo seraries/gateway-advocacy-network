@@ -20,6 +20,21 @@ footer {
     background-color: transparent;
     color: #FFFFFF;
 }
+/* For logo in the navbar brand; not being used currently
+.navbar-brand {
+  padding: 0px; 
+}
+.navbar-brand>img {
+  max-height: 100%;
+  padding: 15px; 
+  width: auto;
+} */
+
+/* This makes the image responsize--adjusts it for screensize */
+img{
+    max-width: 100%;
+    height: auto;
+}
 /* make google calendar responsive */
 .calendar-container {
 	position: relative;
