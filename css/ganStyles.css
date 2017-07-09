@@ -11,7 +11,7 @@ footer {
 #foot {
     padding: 10px;
     padding-top: 15px;
-    font-size: 14px;
+    font-size: 15px;
     text-align: center;
 }
 /* stop navbar G.A.N. from changing colors and looking like a link */
@@ -35,9 +35,9 @@ img{
     max-width: 100%;
     height: auto;
 }
-/* make google calendar responsive */
+/* make google calendar responsive. Added these to a div that wrapped the calendar iframe. Not needed with Tockify. 
 .calendar-container {
-	position: relative;
+    position: relative;
     padding-bottom: 70%;
     height: 0;
     overflow: hidden;
@@ -48,7 +48,7 @@ img{
     left: 0;
     width: 100%;
     height: 100%;
-}
+}*/
 .info {
 	text-decoration: underline;
 	font-style: italic;
@@ -61,7 +61,7 @@ img{
 	margin: 10px;
 }
 .btn-lead {
-    background-color: #7581E8;
+    background-color: #99d6ff;
     color: #FFFFFF;
 }
 .btn-lead:hover {
@@ -71,7 +71,7 @@ img{
 	padding: 20px 20px;
 }
 .login {
-    background-color: #7581E8;
+    background-color: #99d6ff;
     font-style: italic;
     font-size: 18px; 
     cursor: pointer;
