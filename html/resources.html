@@ -15,11 +15,11 @@
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
       <!--import AngularJS-->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular.min.js"></script>
-    <script src="../js/resources.js"></script>
+    <script src="../js/resources.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
     <!--bootswatch flatly-->
 	<link rel="stylesheet" href="../css/bootstrap.min.css">
-	<link rel="stylesheet" href="../css/ganStyles.css">
+	<link rel="stylesheet" href="../css/ganStyles.min.css">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -114,7 +114,7 @@
                   </div>
                   <div class="form-group">
                     <label for="about">About this resource: </label>
-                    <input type="text" class="form-control" id="about" ng-model="addResInfo.about" placeholder="Summarize what they do; e.g. mission statement" required>
+                    <textarea maxlength="845" class="form-control" id="about" ng-model="addResInfo.about" placeholder="Briefly summarize what they do; e.g. mission statement. Max 850 characters, then it cuts off." required></textarea>
                   </div>
                   <div class="form-group">
       				    	<label for="main">Select Main Issue this resource is concerned with: </label>
@@ -159,7 +159,7 @@
                   </div>
                   <div class="form-group">
                     <label for="editLink">Link to this resource: </label>
-                    <input type="text" class="form-control" id="editLink" ng-model="editResInfo.link" placeholder="Copy paste link to their website or fb page" required>
+                    <textarea maxlength="845" class="form-control" id="editAbout" ng-model="editResInfo.about" placeholder="Summarize what they do; e.g. mission statement. Max 850 characters, then it cuts off." required></textarea>
                   </div>
                   <div class="form-group">
                     <label for="editAbout">About this resource: </label>

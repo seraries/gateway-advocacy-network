@@ -15,11 +15,11 @@
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
       <!--import AngularJS-->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular.min.js"></script>
-    <script src="../js/local.js"></script>
+    <script src="../js/local.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
     <!--bootswatch flatly-->
 		<link rel="stylesheet" href="../css/bootstrap.min.css">
-		<link rel="stylesheet" href="../css/ganStyles.css">
+		<link rel="stylesheet" href="../css/ganStyles.min.css">
 			<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -110,12 +110,12 @@
 			            </div>
 			            <div class="form-group">
 			              <label for="link">Link to this group: </label>
-			              <input type="text" class="form-control" id="link" name="link" ng-model="addGroupInfo.link" placeholder="Copy and paste link to your website or FB page" required>
+			              <input type="text" class="form-control" id="link" name="link" ng-model="addGroupInfo.link" placeholder="Copy and paste link to your website or FB page, or enter a '#'" required>
 			              <span class="error" ng-show="addForm.link.$touched && !isValidLink(addGroupInfo.link)">Links must begin with http:&#x2F;&#x2F; or https:&#x2F;&#x2F;</span>
 			            </div>
 			            <div class="form-group">
 			              <label for="about">About this group: </label>
-			              <input type="text" class="form-control" id="about" ng-model="addGroupInfo.about" placeholder="Summarize what you do; e.g. mission statement" required>
+			              <textarea maxlength="845" class="form-control" id="about" ng-model="addGroupInfo.about" placeholder="Briefly summarize what you do; e.g. mission statement. Max 850 characters, then it cuts off." required></textarea>
 			            </div>
 			            <div class="form-group">
 							    	<label for="contact">Contact Person for this group: </label>
@@ -171,7 +171,7 @@
 			            </div>
 			            <div class="form-group">
 			              <label for="editAbout">About this group: </label>
-			              <input type="text" class="form-control" id="editAbout" ng-model="editGroupInfo.about" placeholder="Summarize what you do; e.g. mission statement" required>
+			              <textarea maxlength="845" class="form-control" id="editAbout" ng-model="editGroupInfo.about" placeholder="Briefly summarize what you do; e.g. mission statement. Max 850 characters, then it cuts off." required></textarea> 
 			            </div>
 			            <div class="form-group">
 							    	<label for="editContact">Contact Person for this group: </label>
@@ -221,15 +221,13 @@
 		    		<select name="zipFocus" id="zipFocus" ng-model="zipFocus" >
 		    			<option value="All">All Issues</option>
 		    			<option ng-repeat="x in resTypes">{{x.name}}</option>
-		    			<option value="15">15</option>
 			    	</select>
 		    	</div>
 		    	<div ng-repeat="group in zipGroups | filter: focusFilter | orderBy: 'name'">
 		    		<header><h2><a ng-href="{{group.link}}" target="_blank" rel="noopener">{{group.name}}</a></h2></header>
 		  			<p><span class="info">About</span>: {{group.about}}</p>
 		  			<p><span class="info">Focus</span>: {{group.issues}}</p>
-		  			<p><span class="info">Contact</span>: {{group.contact}}</p>
-		  			<p><span class="info">Email</span>: <a ng-href="mailto:{{group.contactEmail}}">{{ group.contactEmail }}</a></p>
+		  			<p><span class="info">Contact</span>: <a ng-href="mailto:{{group.contactEmail}}">{{group.contact}}</a></p>
 		  			<p><span class="info">Meets in Zip</span>: {{group.zip}}</p>
 		    	</div>		
 		    	<div ng-show="(zipGroups | filter: focusFilter).length < 1">No groups matching that criteria.</div> 	
@@ -241,8 +239,7 @@
 	    		<header><h2><a ng-href="{{each.link}}" target="_blank" rel="noopener">{{each.name}}</a></h2></header>
 	  			<p><span class="info">About</span>: {{each.about}}</p>
 	  			<p><span class="info">Focus</span>: {{each.issues}}</p>
-	  			<p><span class="info">Contact</span>: {{each.contact}}</p>
-	  			<p><span class="info">Email</span>: <a ng-href="mailto:{{each.contactEmail}}">{{ each.contactEmail }}</a></p>
+	  			<p><span class="info">Contact</span>: <a ng-href="mailto:{{each.contactEmail}}">{{each.contact}}</a></p>
 	  			<p><span class="info">Meets in Zip</span>: {{each.zip}}</p>
 	    	</div> 	
 	    </section>
