@@ -4,7 +4,7 @@ $loginInfo = file_get_contents("php://input");
 $loginInfo = json_decode($loginInfo);
 $username = $loginInfo->username;
 $password = $loginInfo->password;
-// file_put_contents("testData.txt", "start of file");
+//file_put_contents("testData.txt", $loginInfo->username . $loginInfo->password);
 
 // this gets $conn from db using config info
 require_once('dbconnect.php');
@@ -30,21 +30,26 @@ $stmt->bind_param('s', $username);
 
 $stmt->execute();
 
-$result = $stmt->get_result(); 
+$stmt->store_result();
+
+$stmt->bind_result($hash);
+ 
 
 // let angular know if this was successful login. Have to use object since angular
 // expects json so php must return json.
-$resp->message = "no"; // default value, if it wasn't successful
+$resp = (object) ['message' => 'no']; // default value, if it wasn't successful
 
-while ($user = $result->fetch_object()) {
+while ($stmt->fetch()) {
 	// Hashing the password with its hash as the salt returns the same hash
-	if (hash_equals($user->hash, crypt($password, $user->hash)) ) {
+	if (hash_equals($hash, crypt($password, $hash)) ) {
 		// file_put_contents("testData.txt", "success! ", FILE_APPEND);
 		$resp->message = "ok"; // value since it was successful
 		$resp = json_encode($resp);
 		echo $resp;
 	}
+        //file_put_contents("testData.txt", $resp, FILE_APPEND);
 }
+$stmt->free_result();
 
 $stmt->close();
 
